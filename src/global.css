@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import 'tailwindcss';
+
+@theme {
+    --font-spell-inter: 'Inter', serif;
+
+    --color-spell-purple: #652d90;
+    --color--spell-black: #1e1e1e;
+    --color-spell-white: #efefef;
+    --color-spell-yellow: #f7941d;
+    --color-spell-gray: #28282b;
+}
+
+@layer base {
+    *,
+    ::after,
+    ::before,
+    ::backdrop,
+    ::file-selector-button {
+        border-color: var(--color-gray-400, currentColor);
+    }
+
+    body {
+        @apply font-spell-inter text-sm;
+    }
+
+    h2 {
+        @apply lg:text-6xl text-4xl font-bold lg:leading-16;
+    }
+
+    h3 {
+        @apply text-3xl font-bold;
+    }
+
+    h4 {
+        @apply text-xl font-bold;
+    }
+
+    h5 {
+        @apply text-lg font-bold;
+    }
+
+    button {
+        @apply text-white font-semibold px-10 py-2.5 rounded-lg hover:translate-0.5 drop-shadow-xl shadow-initial cursor-pointer duration-500 ease-in-out;
+    }
+}
