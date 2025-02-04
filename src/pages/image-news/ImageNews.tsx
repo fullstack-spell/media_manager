@@ -1,6 +1,9 @@
-import { Input, Select, Table, TableColumnsType } from "antd";
+import { Button, Form, Input, Modal, Select, Switch, Table, TableColumnsType, Upload } from "antd";
 import FormItem from "antd/es/form/FormItem";
+import TextArea from "antd/es/input/TextArea";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
+import { IoAdd } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 
 const ImageNews = () => {
@@ -42,6 +45,12 @@ const ImageNews = () => {
             width: 150,
         },
         {
+            title: 'View Count',
+            dataIndex: 'view_count',
+            key: 'view_count',
+            width: 150,
+        },
+        {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
@@ -62,7 +71,8 @@ const ImageNews = () => {
         age: 32,
         address: `London Park no. ${i}`,
     }));
-
+    const [form] = Form.useForm();
+    const [modelOpen, setModelOpen] = useState(false)
 
     return (
         <div className="h-full space-y-3">
@@ -77,7 +87,7 @@ const ImageNews = () => {
                 <button className="bg-spell-yellow">Search</button>
             </div>
 
-            <button className="bg-spell-purple">Add News</button>
+            <button onClick={() => setModelOpen(true)} className="bg-spell-purple">Add Image News</button>
 
             <Table
                 className="h-full overflow-hidden mb-5"
@@ -86,6 +96,48 @@ const ImageNews = () => {
                 scroll={{ x: 1500 }}
                 sticky={{ offsetHeader: 0 }}
             />
+
+            <Modal
+                centered
+                okText={'Add'}
+                open={modelOpen}
+                title="Manage News Category"
+                onOk={() => setModelOpen(false)}
+                onCancel={() => setModelOpen(false)}
+            >
+                <Form form={form} size="large" layout="vertical" autoComplete="off">
+                    <Form.Item className="!mb-3" name="title" label="Title" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="slug" label="Slug" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="short_description" label="Short Description" rules={[{ required: true }]}>
+                        <TextArea />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="images" label="Upload Images" >
+                        <Upload
+                            listType="picture"
+                        >
+                            <Button type="primary" icon={<IoAdd />}>
+                                Upload
+                            </Button>
+                        </Upload>
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="featured" label="Featured?" >
+                        <Switch />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="with_image" label="With Image?" rules={[{ required: true }]}>
+                        <Switch />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="position" label="Postition" rules={[{ required: true }]}>
+                        <Select className="w-full" options={[{ label: 1, value: 1 }, { label: 2, value: 2 }, { label: 3, value: 3 }]} />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="status" label="Status" rules={[{ required: true }]}>
+                        <Switch />
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     )
 }

@@ -1,7 +1,11 @@
-import { Input, Select, Table, TableColumnsType } from "antd";
+import { Button, Checkbox, Form, Input, Modal, Select, Switch, Table, TableColumnsType, Upload } from "antd";
 import FormItem from "antd/es/form/FormItem";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
+import { IoAdd } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 
 const News = () => {
     const columns: TableColumnsType = [
@@ -48,6 +52,12 @@ const News = () => {
             width: 150,
         },
         {
+            title: 'View Count',
+            dataIndex: 'view_count',
+            key: 'view_count',
+            width: 150,
+        },
+        {
             title: 'Status',
             dataIndex: 'status',
             key: 'status',
@@ -67,6 +77,9 @@ const News = () => {
         age: 32,
         address: `London Park no. ${i}`,
     }));
+    const [value, setValue] = useState('');
+    const [form] = Form.useForm();
+    const [modelOpen, setModelOpen] = useState(false)
 
 
     return (
@@ -82,7 +95,7 @@ const News = () => {
                 <button className="bg-spell-yellow">Search</button>
             </div>
 
-            <button className="bg-spell-purple">Add News</button>
+            <button className="bg-spell-purple" onClick={() => setModelOpen(true)} >Add News</button>
 
             <Table
                 className="h-full overflow-hidden mb-5"
@@ -91,6 +104,63 @@ const News = () => {
                 scroll={{ x: 1500 }}
                 sticky={{ offsetHeader: 0 }}
             />
+
+            <Modal
+                className="!w-screen"
+                centered
+                okText={'Add'}
+                open={modelOpen}
+                title="Manage News Category"
+                onOk={() => setModelOpen(false)}
+                onCancel={() => setModelOpen(false)}
+            >
+                <Form form={form} className="grid grid-cols-3 gap-5" size="large" layout="vertical" autoComplete="off">
+                    <Form.Item className="!mb-3" name="title" label="Title" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="slug" label="Slug" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="author" label="Author" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="images" label="Upload Images" >
+                        <Upload
+                            listType="picture"
+                        >
+                            <Button type="primary" icon={<IoAdd />}>
+                                Upload
+                            </Button>
+                        </Upload>
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="featured" label="Featured?" >
+                        <Switch />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="with_image" label="With Image?" rules={[{ required: true }]}>
+                        <Switch />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="position" label="Postition" rules={[{ required: true }]}>
+                        <Select className="w-full" options={[{ label: 1, value: 1 }, { label: 2, value: 2 }, { label: 3, value: 3 }]} />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="status" label="Status" rules={[{ required: true }]}>
+                        <Switch />
+                    </Form.Item>
+                    <div className="flex flex-col gap-3 col-span-2 mb-10 justify-start">
+                        <Form.Item className="!mb-0" name="description" label="Description" rules={[{ required: true }]} />
+                        <ReactQuill theme="snow" value={value} onChange={setValue} />
+                    </div>
+                    <Form.Item className="!mb-3 col-span-1" name="category" label="category"  >
+                        <div className='flex flex-col gap-3 items-start'>
+                            <Checkbox>Category 1</Checkbox>
+                            <Checkbox>Category 2</Checkbox>
+                            <Checkbox>Category 3</Checkbox>
+                            <Checkbox>Category 4</Checkbox>
+                            <Checkbox>Category 5</Checkbox>
+                            <Checkbox>Category 6</Checkbox>
+                        </div>
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     )
 }

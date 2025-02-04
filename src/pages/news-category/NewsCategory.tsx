@@ -1,4 +1,5 @@
-import { Input, Select, Table, TableColumnsType } from "antd";
+import { Form, Input, Modal, Select, Switch, Table, TableColumnsType } from "antd";
+import { useState } from "react";
 import FormItem from "antd/es/form/FormItem";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
@@ -44,6 +45,8 @@ const NewsCategory = () => {
         address: `London Park no. ${i}`,
     }));
 
+    const [form] = Form.useForm();
+    const [modelOpen, setModelOpen] = useState(false)
 
     return (
         <div className="h-full space-y-3">
@@ -58,7 +61,7 @@ const NewsCategory = () => {
                 <button className="bg-spell-yellow">Search</button>
             </div>
 
-            <button className="bg-spell-purple">Add News</button>
+            <button onClick={() => setModelOpen(true)} className="bg-spell-purple">Add News Category</button>
 
             <Table
                 className="h-full overflow-hidden mb-5"
@@ -67,6 +70,27 @@ const NewsCategory = () => {
                 scroll={{ x: 1500 }}
                 sticky={{ offsetHeader: 0 }}
             />
+
+            <Modal
+                centered
+                okText={'Add'}
+                open={modelOpen}
+                title="Manage News Category"
+                onOk={() => setModelOpen(false)}
+                onCancel={() => setModelOpen(false)}
+            >
+                <Form form={form} size="large" layout="vertical" autoComplete="off">
+                    <Form.Item className="!mb-3" name="name" label="Name" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="slug" label="Slug" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="status" label="Status" rules={[{ required: true }]}>
+                        <Switch />
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     )
 }
