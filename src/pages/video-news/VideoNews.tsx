@@ -76,7 +76,7 @@ const VideoNews = () => {
                     <Input size="large" className="!w-[200px]" />
                 </FormItem>
                 <FormItem label={<p className="text-base font-medium">Filter two</p>} layout="vertical" className="!m-0 w-[200px]">
-                    <Select options={[{ label: 'one', value: 'one value' }]} value={'one value'} size="large" />
+                    <Select className="custom-select" options={[{ label: 'one', value: 'one value' }]} value={'one value'} size="large" />
                 </FormItem>
                 <button className="bg-spell-yellow">Search</button>
             </div>
@@ -96,7 +96,11 @@ const VideoNews = () => {
                 okText={'Add'}
                 open={modelOpen}
                 title="Manage News Category"
-                onOk={() => setModelOpen(false)}
+                onOk={async () => {
+                    await form.validateFields()
+                    form.resetFields()
+                    setModelOpen(false)
+                }}
                 onCancel={() => setModelOpen(false)}
             >
                 <Form form={form} size="large" layout="vertical" autoComplete="off">
