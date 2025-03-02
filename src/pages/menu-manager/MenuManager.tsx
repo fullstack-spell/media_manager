@@ -2,42 +2,8 @@ import React, { useState } from 'react';
 import { Checkbox, Drawer, Input, Tree } from 'antd';
 import type { TreeDataNode, TreeProps } from 'antd';
 import FormItem from 'antd/es/form/FormItem';
-import { FaEdit } from 'react-icons/fa';
-import { IoMdArrowDropright } from 'react-icons/io';
-import { GoDotFill } from 'react-icons/go';
 
 const data = [
-    {
-        "id": 1,
-        "name": "Trending",
-        "slug": "t-fg-sdf-s",
-        "position_navbar": 1,
-        "post_category_id": 1,
-        "homepage_position": 1,
-        "created_at": "2025-01-29T09:05:07.000000Z",
-        "updated_at": "2025-01-29T09:32:20.000000Z",
-        "child_ids": [
-            {
-                "id": 1,
-                "name": "Trending",
-                "slug": "t-fg-sdf-s",
-                "position_navbar": 1,
-                "post_category_id": 1,
-                "homepage_position": 1,
-                "created_at": "2025-01-29T09:05:07.000000Z",
-                "updated_at": "2025-01-29T09:32:20.000000Z"
-            },
-            {
-                "id": 3,
-                "name": "Trendgbsdging",
-                "slug": "trendgbsdging",
-                "position_navbar": null,
-                "post_category_id": null,
-                "homepage_position": null,
-                "created_at": "2025-02-04T08:52:11.000000Z",
-                "updated_at": "2025-02-04T08:52:11.000000Z"
-            },]
-    },
     {
         "id": 3,
         "name": "Trendgbsdging",
@@ -132,7 +98,6 @@ const defaultValue = data?.map((item) => ({
 const MenuManager: React.FC = () => {
     const [gData, setGData] = useState(defaultValue);
     const [addMenuDrawer, setAddMenuDrawer] = useState(false);
-    const [manageMenu, setManageMenu] = useState(false);
 
     const onDrop: TreeProps['onDrop'] = (info) => {
         const dropKey = info.node.key;
@@ -192,32 +157,23 @@ const MenuManager: React.FC = () => {
         <div className='space-y-2'>
             <button onClick={() => setAddMenuDrawer(true)} className='bg-spell-purple mb-10'>Add menu</button>
 
-            <h5 className='flex items-center gap-3'>Manage Menu: <FaEdit onClick={() => setManageMenu(!manageMenu)} size={25} className='cursor-pointer' /></h5>
-            {manageMenu ? <>
-                <Tree
-                    className="draggable-tree"
-                    draggable
-                    blockNode
-                    defaultExpandAll
-                    onDrop={onDrop}
-                    treeData={gData}
-                />
+            <h5 className='flex items-center gap-3'>Manage Menu:</h5>
 
-                <button className='bg-spell-purple mt-5' onClick={(() => {
-                    const submitData = gData?.map((item) => ({ parent_id: item?.key, child_ids: item?.children?.map((e) => ({ id: e?.key })) }))
-                    console.log(submitData);
-                    setManageMenu(false)
-                })}>Save</button>
-            </>
-                :
+            <Tree
+                className="draggable-tree"
+                draggable
+                blockNode
+                defaultExpandAll
+                onDrop={onDrop}
+                treeData={gData}
+            />
 
-                gData?.map((item, i) => <div key={i} className='flex flex-col gap-3 items-start'>
-                    <div className='flex flex-col gap-1'>
-                        <p className='text-lg font-medium flex items-center gap-2'>{item?.children ? <IoMdArrowDropright /> : <GoDotFill size={12} />} {item?.title}</p>
-                        {item?.children && item?.children?.map((e, j) => <p key={j} className='pl-5 flex items-center gap-1'> <GoDotFill size={10} /> {e?.title}</p>)}
-                    </div>
-                </div>)
-            }
+            <button className='bg-spell-purple mt-5' onClick={(() => {
+                const submitData = gData?.map((item) => ({ parent_id: item?.key, child_ids: item?.children?.map((e) => ({ id: e?.key })) }))
+                console.log(submitData);
+            })}>Save</button>
+
+
 
             <Drawer title="Add Menu" onClose={() => setAddMenuDrawer(false)} open={addMenuDrawer}>
                 <FormItem label={<h5>Menu Name:</h5>} layout='vertical'>

@@ -44,3 +44,23 @@
         @apply text-white font-semibold px-10 py-2.5 rounded-lg hover:translate-0.5 drop-shadow-xl shadow-initial cursor-pointer duration-500 ease-in-out;
     }
 }
+
+.draggable-tree .ant-tree-treenode-switcher-close {
+    @apply !w-fit;
+}
+
+.draggable-tree .ant-tree-node-content-wrapper-normal {
+    @apply !bg-white !shadow !border !rounded-sm !w-fit !px-2.5 !py-1;
+}
+
+.draggable-tree .ant-tree-node-content-wrapper-close {
+    @apply !font-semibold !text-base !bg-white !shadow !border !rounded-sm !w-fit !px-2.5 !py-1;
+}
+
+.draggable-tree .ant-tree-node-content-wrapper-open {
+    @apply !font-semibold !text-base !bg-white !shadow !border !rounded-sm !w-fit !px-2.5 !py-1;
+}
+
+.draggable-tree .ant-tree-treenode-switcher-open {
+    @apply !w-fit;
+}
