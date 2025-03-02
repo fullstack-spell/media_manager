@@ -15,11 +15,13 @@ import MediaManager from "./pages/media-manager/MediaManager"
 import MenuManager from "./pages/menu-manager/MenuManager"
 import Hastag from "./pages/hastag-manager/Hastag"
 import SocialMedia from "./pages/social-media/SocialMedia"
+import Login from "./pages/auth/Login"
 
 const App = () => {
   return (
     <Routes>
       <Route element={<NavWrapper />}>
+        <Route path='/login' element={<Login />} />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/news-category' element={<NewsCategory />} />
         <Route path='/news' element={<News />} />

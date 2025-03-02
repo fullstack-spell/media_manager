@@ -1,11 +1,11 @@
-import { Button, Checkbox, Form, Input, Modal, Select, Switch, Table, TableColumnsType, Upload } from "antd";
+import { Checkbox, Form, Input, Modal, Select, Switch, Table, TableColumnsType } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import { IoAdd } from "react-icons/io5";
 import { MdDelete } from "react-icons/md";
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import MediaSelectOnUpload from "../../components/MediaSelectOnUpload";
 
 const News = () => {
     const columns: TableColumnsType = [
@@ -124,15 +124,11 @@ const News = () => {
                     <Form.Item className="!mb-3" name="author" label="Author" rules={[{ required: true }]}>
                         <Input />
                     </Form.Item>
-                    <Form.Item className="!mb-3" name="images" label="Upload Images" >
-                        <Upload
-                            listType="picture"
-                        >
-                            <Button type="primary" icon={<IoAdd />}>
-                                Upload
-                            </Button>
-                        </Upload>
-                    </Form.Item>
+                    <div>
+                        <Form.Item className="!mb-0" name="images" label="Upload Images" >
+                            <MediaSelectOnUpload />
+                        </Form.Item>
+                    </div>
                     <Form.Item className="!mb-3" name="featured" label="Featured?" >
                         <Switch />
                     </Form.Item>
