@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DatePicker, Select } from "antd"
 import Search from "antd/es/input/Search"
 import { useState } from "react"
