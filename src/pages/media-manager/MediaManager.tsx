@@ -1,20 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DatePicker, Select } from "antd"
+import { DatePicker, Select, Upload } from "antd"
 import Search from "antd/es/input/Search"
 import { useState } from "react"
 import { CiGrid41 } from "react-icons/ci"
-import { FaCheckCircle } from "react-icons/fa"
+import { FaCheckCircle, FaPlus } from "react-icons/fa"
 import { IoIosList } from "react-icons/io"
 
 const MediaManager = ({ type, setValue, selectMultiple }: { selectMultiple?: boolean, setValue?: (e: any) => void, type?: 'Image' | 'Video' }) => {
 
     const [selectImage, setSelectImage] = useState<any>(selectMultiple ? [] : '')
+    const [addMedia, setAddMedia] = useState<any>(false)
 
     return (
         <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2">
                 <h3>Media Manager</h3>
-                <button className="bg-spell-purple">Add Media</button>
+                <button className="bg-spell-purple" onClick={() => setAddMedia(!addMedia)}>{addMedia && 'Close'} Add Media</button>
             </div>
             <div className="flex flex-col gap-2  border-2 border-spell-purple p-5 rounded-lg">
                 <div className="flex items-center gap-3">
@@ -46,6 +47,20 @@ const MediaManager = ({ type, setValue, selectMultiple }: { selectMultiple?: boo
                     </div>
                 </div>
             </div>
+
+            {addMedia && <div className="flex items-end gap-3">
+                <Upload
+                    action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                    listType="picture-card"
+                >
+                    <div className="flex flex-col gap-2 items-center">
+                        <FaPlus />
+                        Upload
+                    </div>
+                </Upload>
+
+                <button className="bg-spell-purple" onClick={() => setAddMedia(!addMedia)}>Upload Media</button>
+            </div>}
         </div>
     )
 }
