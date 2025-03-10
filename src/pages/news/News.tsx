@@ -1,4 +1,4 @@
-import { Checkbox, Form, Input, Modal, Select, Switch, Table, TableColumnsType } from "antd";
+import { Checkbox, Form, Input, Modal, Radio, Select, Switch, Table, TableColumnsType } from "antd";
 import FormItem from "antd/es/form/FormItem";
 import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
@@ -140,6 +140,9 @@ const News = () => {
                     </Form.Item>
                     <Form.Item className="!mb-3" name="status" label="Status" rules={[{ required: true }]}>
                         <Switch />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="type" label="Type" rules={[{ required: true }]}>
+                        <Radio.Group options={[{ label: 'Banner', value: 'banner' }, { label: 'Post', value: 'post' }]} />
                     </Form.Item>
                     <div className="flex flex-col gap-3 col-span-2 mb-10 justify-start">
                         <Form.Item className="!mb-0" name="description" label="Description" rules={[{ required: true }]} />
