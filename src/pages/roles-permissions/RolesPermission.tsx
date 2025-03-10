@@ -1,5 +1,6 @@
-import { Input, Select, Table, TableColumnsType } from "antd";
+import { Checkbox, Form, Input, Modal, Select, Switch, Table, TableColumnsType } from "antd";
 import FormItem from "antd/es/form/FormItem";
+import { useState } from "react";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 
@@ -44,6 +45,8 @@ const RolesPermission = () => {
         address: `London Park no. ${i}`,
     }));
 
+    const [form] = Form.useForm();
+    const [modelOpen, setModelOpen] = useState(false)
 
     return (
         <div className="h-full space-y-3">
@@ -58,7 +61,7 @@ const RolesPermission = () => {
                 <button className="bg-spell-yellow">Search</button>
             </div>
 
-            <button className="bg-spell-purple">Add News</button>
+            <button className="bg-spell-purple" onClick={() => setModelOpen(true)}>Add Roles & Permissions</button>
 
             <Table
                 className="h-full overflow-hidden mb-5"
@@ -67,6 +70,35 @@ const RolesPermission = () => {
                 scroll={{ x: 1500 }}
                 sticky={{ offsetHeader: 0 }}
             />
+
+            <Modal
+                centered
+                okText={'Add'}
+                open={modelOpen}
+                title="Manage News Category"
+                onOk={() => setModelOpen(false)}
+                onCancel={() => setModelOpen(false)}
+            >
+                <Form form={form} className="grid grid-cols-1 gap-5" size="large" layout="vertical" autoComplete="off">
+                    <Form.Item className="!mb-3" name="role" label="Role" rules={[{ required: true }]}>
+                        <Input />
+                    </Form.Item>
+                    <Form.Item className="!mb-3" name="permissions" label="Permissions" rules={[{ required: true }]} >
+                        <div className='flex flex-col gap-3 items-start'>
+                            <Checkbox>Permission 1</Checkbox>
+                            <Checkbox>Permission 2</Checkbox>
+                            <Checkbox>Permission 3</Checkbox>
+                            <Checkbox>Permission 4</Checkbox>
+                            <Checkbox>Permission 5</Checkbox>
+                            <Checkbox>Permission 6</Checkbox>
+                        </div>
+                    </Form.Item>
+
+                    <Form.Item className="!mb-3" name="status" label="Status" rules={[{ required: true }]}>
+                        <Switch />
+                    </Form.Item>
+                </Form>
+            </Modal>
         </div>
     )
 }
